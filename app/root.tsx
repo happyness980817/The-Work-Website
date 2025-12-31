@@ -5,8 +5,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
-
+import Navigation from "./components/navigation";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -42,7 +43,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const { pathname } = useLocation();
+  return (
+    <div className={pathname.includes("/auth") ? "" : "py-28 px-5 xl:px-20"}>
+      {pathname.includes("/auth") ? null : (
+        <Navigation
+          isloggedIn={true}
+          hasNotifications={false}
+          hasMessages={false}
+        />
+      )}
+      <Outlet />
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
