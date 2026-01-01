@@ -14,50 +14,48 @@ type DummyCounselor = {
   avatarUrl?: string;
 };
 
-const STATUSES: CounselorStatus[] = ["online", "busy", "away"];
+const AVATAR_URL = "https://github.com/shadcn.png";
 
-const DUMMY_COUNSELORS: DummyCounselor[] = [
-  ...Array.from({ length: 12 }).map((_, i) => {
+const ONLINE_COUNSELORS: DummyCounselor[] = Array.from({ length: 8 }).map(
+  (_, i) => {
     const id = `online-${i + 1}`;
     return {
       id,
       name: `상담사 ${i + 1}`,
       headline: "상담사입니다.",
-      status: "online" as const,
-      avatarUrl: "https://github.com/shadcn.png",
+      status: "online",
+      avatarUrl: AVATAR_URL,
     };
-  }),
-  ...Array.from({ length: 12 }).map((_, i) => {
+  }
+);
+
+const BUSY_COUNSELORS: DummyCounselor[] = Array.from({ length: 8 }).map(
+  (_, i) => {
     const id = `busy-${i + 1}`;
     return {
       id,
-      name: `상담사 ${i + 13}`,
+      name: `상담사 ${i + 101}`,
       headline: "상담사입니다.",
-      status: "busy" as const,
-      avatarUrl: "https://github.com/shadcn.png",
+      status: "busy",
+      avatarUrl: AVATAR_URL,
     };
-  }),
-  ...Array.from({ length: 12 }).map((_, i) => {
+  }
+);
+
+const AWAY_COUNSELORS: DummyCounselor[] = Array.from({ length: 8 }).map(
+  (_, i) => {
     const id = `away-${i + 1}`;
     return {
       id,
-      name: `상담사 ${i + 25}`,
+      name: `상담사 ${i + 201}`,
       headline: "상담사입니다.",
-      status: "away" as const,
-      avatarUrl: "https://github.com/shadcn.png",
+      status: "away",
+      avatarUrl: AVATAR_URL,
     };
-  }),
-];
-
-const SECTION_LIMIT = 8; // lg:grid-cols-4 기준 2줄(4 * 2)
+  }
+);
 
 export default function CounselorsIndex() {
-  const onlineCounselors = DUMMY_COUNSELORS.filter(
-    (c) => c.status === "online"
-  );
-  const busyCounselors = DUMMY_COUNSELORS.filter((c) => c.status === "busy");
-  const awayCounselors = DUMMY_COUNSELORS.filter((c) => c.status === "away");
-
   return (
     <div className="space-y-10">
       <div className="space-y-3">
@@ -88,20 +86,20 @@ export default function CounselorsIndex() {
           <div className="flex items-end justify-between gap-4">
             <h2 className="text-3xl font-bold tracking-tight">온라인</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {onlineCounselors.slice(0, SECTION_LIMIT).map((c) => (
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {ONLINE_COUNSELORS.map((counselor) => (
               <CounselorCard
-                key={c.id}
-                id={c.id}
-                name={c.name}
-                headline={c.headline}
-                status={c.status}
-                avatarUrl={c.avatarUrl}
+                key={counselor.id}
+                id={counselor.id}
+                name={counselor.name}
+                headline={counselor.headline}
+                status={counselor.status}
+                avatarUrl={counselor.avatarUrl}
               />
             ))}
           </div>
           <div className="flex justify-end">
-            <Button variant="link" className="px-0" disabled>
+            <Button variant="link" className="px-0">
               더보기 →
             </Button>
           </div>
@@ -111,20 +109,20 @@ export default function CounselorsIndex() {
           <div className="flex items-end justify-between gap-4">
             <h2 className="text-3xl font-bold tracking-tight">상담중</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {busyCounselors.slice(0, SECTION_LIMIT).map((c) => (
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {BUSY_COUNSELORS.map((counselor) => (
               <CounselorCard
-                key={c.id}
-                id={c.id}
-                name={c.name}
-                headline={c.headline}
-                status={c.status}
-                avatarUrl={c.avatarUrl}
+                key={counselor.id}
+                id={counselor.id}
+                name={counselor.name}
+                headline={counselor.headline}
+                status={counselor.status}
+                avatarUrl={counselor.avatarUrl}
               />
             ))}
           </div>
           <div className="flex justify-end">
-            <Button variant="link" className="px-0" disabled>
+            <Button variant="link" className="px-0">
               더보기 →
             </Button>
           </div>
@@ -134,20 +132,20 @@ export default function CounselorsIndex() {
           <div className="flex items-end justify-between gap-4">
             <h2 className="text-3xl font-bold tracking-tight">자리비움</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {awayCounselors.slice(0, SECTION_LIMIT).map((c) => (
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {AWAY_COUNSELORS.map((counselor) => (
               <CounselorCard
-                key={c.id}
-                id={c.id}
-                name={c.name}
-                headline={c.headline}
-                status={c.status}
-                avatarUrl={c.avatarUrl}
+                key={counselor.id}
+                id={counselor.id}
+                name={counselor.name}
+                headline={counselor.headline}
+                status={counselor.status}
+                avatarUrl={counselor.avatarUrl}
               />
             ))}
           </div>
           <div className="flex justify-end">
-            <Button variant="link" className="px-0" disabled>
+            <Button variant="link" className="px-0">
               더보기 →
             </Button>
           </div>

@@ -21,7 +21,7 @@ function statusLabel(status: CounselorStatus) {
     case "busy":
       return "상담중";
     case "away":
-      return "자리비움";
+      return "오프라인";
   }
 }
 
@@ -32,7 +32,7 @@ function statusClass(status: CounselorStatus) {
     case "busy":
       return "bg-blue-500/10 text-blue-700 ring-blue-600/20";
     case "away":
-      return "bg-amber-500/10 text-amber-700 ring-amber-600/20";
+      return "bg-zinc-500/10 text-zinc-700 ring-zinc-600/20";
   }
 }
 
@@ -78,7 +78,7 @@ export function CounselorCard({
             <span
               className={cn(
                 "shrink-0 rounded-full px-2 py-1 text-xs font-medium ring-1",
-                statusClass(status),
+                statusClass(status)
               )}
             >
               {statusLabel(status)}
@@ -87,6 +87,14 @@ export function CounselorCard({
 
           <div className="mt-3 flex items-center justify-between gap-2">
             <div className="flex items-center gap-1 ml-auto">
+              <Button
+                size="sm"
+                variant="secondary"
+                className="cursor-pointer"
+                onClick={(e) => e.stopPropagation()}
+              >
+                상담 신청
+              </Button>
               <Button
                 size="sm"
                 className="cursor-pointer"
@@ -105,5 +113,3 @@ export function CounselorCard({
     </div>
   );
 }
-
-
