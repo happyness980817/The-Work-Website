@@ -7,8 +7,10 @@ import {
 
 export default [
   index("routes/index.tsx"),
+  route("/message", "routes/message.tsx"),
   ...prefix("/counselors", [
-    index("routes/counselor/index.tsx"),
+    index("routes/counselor/counselors.tsx"),
+    route("/:counselorId/profile", "routes/counselor/counselor-profile.tsx"),
     route("/:counselorId", "routes/counselor/$counselorId.tsx"),
   ]),
   ...prefix("/user", [
