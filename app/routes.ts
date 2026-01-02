@@ -6,8 +6,9 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  index("routes/index.tsx"),
+  index("routes/home.tsx"),
   route("/message", "routes/message.tsx"),
+  route("/about", "routes/about.tsx"),
   ...prefix("/counselors", [
     index("routes/counselor/counselors.tsx"),
     route("/:counselorId/profile", "routes/counselor/counselor-profile.tsx"),

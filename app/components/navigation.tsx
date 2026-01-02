@@ -3,6 +3,14 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuContent,
+  NavigationMenuTrigger,
+  NavigationMenuLink,
+} from "./ui/navigation-menu";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -11,6 +19,66 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { COUNTRIES } from "~/constants";
+
+const menus = [
+  {
+    name: "상담사 ",
+    to: "/counselors?status=online",
+    items: [
+      {
+        name: "기준별 탐색",
+        description: "Search for a counselor by criteria",
+        to: "/counselors",
+      },
+      // {
+      //   name: "온라인",
+      //   description: "Online counselors",
+      //   to: "/counselors?status=online",
+      // },
+      // {
+      //   name: "국가별",
+      //   description: "Counselors by country",
+      //   to: "/counselors?sortBy=countries",
+      // },
+      // {
+      //   name: "평점별",
+      //   description: "Counselors with the highest ratings",
+      //   to: "/counselors?sortBy=ratings&sortOrder=desc",
+      // },
+      // {
+      //   name: "상담 건수별",
+      //   description: "Counselors who have completed the most sessions",
+      //   to: "/counselors?sortBy=completedSessions&sortOrder=desc",
+      // },
+      {
+        name: "상담사 검색",
+        description: "Search for a counselor",
+        to: "/counselors/search",
+      },
+    ], // 이렇게 할게 아니라 한페이지에서 필터 적용으로 그냥 휙휙 정렬기준이 바뀌게 해야할거같다
+  },
+  {
+    name: "채팅",
+    to: "/user/chats/list",
+    items: [
+      {
+        name: "상담 목록",
+        description: "See the top",
+        to: "/user/chats/list",
+      },
+      {
+        name: "DM",
+        description: "Direct messages",
+        to: "/user/dm",
+      },
+    ],
+  },
+  {
+    name: "웹사이트 소개",
+    to: "/about",
+  },
+];
 
 export default function Navigation({
   isloggedIn,
@@ -25,18 +93,21 @@ export default function Navigation({
     <nav className="flex px-5 xl:px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
       <div className="flex items-center gap-4">
         <Link to="/" className="font-bold tracking-tighter text-lg">
-          The Work - Korea
+          {`The Work - ${COUNTRIES[0]}`}
         </Link>
         <Separator orientation="vertical" className="h-6" />
         <div className="flex items-center gap-2">
           <Button className="font-semibold" asChild variant="ghost" size="sm">
-            <Link to="/counselors">상담사 목록</Link>
+            <Link to="/counselors">상담사</Link>
           </Button>
           <Button className="font-semibold" asChild variant="ghost" size="sm">
             <Link to="/user/chats/1">채팅</Link>
           </Button>
           <Button className="font-semibold" asChild variant="ghost" size="sm">
             <Link to="/user/chats/1">'작업' 이란?</Link>
+          </Button>
+          <Button className="font-semibold" asChild variant="ghost" size="sm">
+            <Link to="/about">웹사이트 소개</Link>
           </Button>
         </div>
       </div>
@@ -95,10 +166,8 @@ export default function Navigation({
               <>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem disabled>프로필 (미구현)</DropdownMenuItem>
-                  <DropdownMenuItem disabled>
-                    로그아웃 (미구현)
-                  </DropdownMenuItem>
+                  <DropdownMenuItem disabled>프로필</DropdownMenuItem>
+                  <DropdownMenuItem disabled>로그아웃</DropdownMenuItem>
                 </DropdownMenuGroup>
               </>
             ) : null}
