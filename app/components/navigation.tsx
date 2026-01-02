@@ -76,17 +76,17 @@ export default function Navigation({
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem asChild className="cursor-pointer">
+              <DropdownMenuItem asChild>
                 <Link to="/auth/counselor/login">상담사 로그인</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild className="cursor-pointer">
+              <DropdownMenuItem asChild>
                 <Link to="/auth/counselor/join">상담사 가입</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild className="cursor-pointer">
+              <DropdownMenuItem asChild>
                 <Link to="/auth/user/login">내담자 로그인</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild className="cursor-pointer">
+              <DropdownMenuItem asChild>
                 <Link to="/auth/user/join">내담자 가입</Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>

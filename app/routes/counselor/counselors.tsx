@@ -60,15 +60,15 @@ export default function CounselorsIndex() {
     <div className="space-y-10">
       <div className="space-y-3">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight">상담사 목록</h1>
-          <p className="text-sm text-muted-foreground">
-            검색/필터 UI는 더미 데이터로 먼저 구성
+          <h1 className="text-5xl font-bold">상담사 목록</h1>
+          <p className="font-light text-muted-foreground pt-2">
+            당신을 위한 상담사들이, 여기에서 당신을 기다리고 있습니다.
           </p>
         </div>
 
         {/* Search (wemake search-page 패턴) */}
         <Form
-          className="flex justify-center max-w-screen-sm items-center mx-auto gap-2"
+          className="flex justify-center max-w-screen-sm items-center mx-auto gap-2 py-10"
           method="get"
         >
           <Input
@@ -84,7 +84,7 @@ export default function CounselorsIndex() {
       <div className="space-y-16">
         <section className="space-y-5">
           <div className="flex items-end justify-between gap-4">
-            <h2 className="text-3xl font-bold tracking-tight">온라인</h2>
+            <h2 className="text-5xl font-semibold">온라인</h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
             {ONLINE_COUNSELORS.map((counselor) => (
@@ -107,7 +107,7 @@ export default function CounselorsIndex() {
 
         <section className="space-y-5">
           <div className="flex items-end justify-between gap-4">
-            <h2 className="text-3xl font-bold tracking-tight">상담중</h2>
+            <h2 className="text-5xl font-semibold">상담중</h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
             {BUSY_COUNSELORS.map((counselor) => (
@@ -130,7 +130,7 @@ export default function CounselorsIndex() {
 
         <section className="space-y-5">
           <div className="flex items-end justify-between gap-4">
-            <h2 className="text-3xl font-bold tracking-tight">자리비움</h2>
+            <h2 className="text-5xl font-semibold">자리비움</h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
             {AWAY_COUNSELORS.map((counselor) => (
