@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import type { Route } from "./+types/home";
 import { COUNTRIES } from "~/constants";
 import { RefreshCw } from "lucide-react";
+import { Link } from "react-router";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -40,9 +41,27 @@ const ONLINE_COUNSELORS: DummyCounselor[] = Array.from({ length: 36 }).map(
 export default function Home() {
   return (
     <div className="space-y-10">
+      <div className="asChild">
+        <Link to="/user/chats/1">
+          <h1 className="text-5xl font-bold">마지막 채팅</h1>
+          <p className="font-light text-muted-foreground p-2">
+            가장 최근에 상담사와 채팅한 내역입니다.
+          </p>
+          <Button
+            variant="link"
+            size="sm"
+            className="gap-2 pt-5 pb-20 text-lg"
+            asChild
+          >
+            <Link to="/user/chats/1">바로가기&rarr;</Link>
+          </Button>
+        </Link>
+      </div>
       <div className="space-y-3">
         <div>
-          <h1 className="text-5xl font-bold">상담사 목록</h1>
+          <h1 className="text-5xl font-bold asChild">
+            <Link to="/counselors?status=online">상담사 목록</Link>
+          </h1>
           <p className="font-light text-muted-foreground pt-2">
             현재 상담 가능한 상담사들입니다.
           </p>
