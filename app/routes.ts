@@ -11,11 +11,16 @@ export default [
   route("/about", "routes/about.tsx"),
   ...prefix("/counselors", [
     index("routes/counselor/counselors.tsx"),
+    route("/search", "routes/counselor/search.tsx"),
     route("/:counselorId/profile", "routes/counselor/counselor-profile.tsx"),
     route("/:counselorId", "routes/counselor/$counselorId.tsx"),
   ]),
   ...prefix("/user", [
-    ...prefix("/chats", [route("/:chatId", "routes/user/chats/chat.tsx")]),
+    route("/dm", "routes/user/dm.tsx"),
+    ...prefix("/chats", [
+      route("/list", "routes/user/chats/list.tsx"),
+      route("/:chatId", "routes/user/chats/chat.tsx"),
+    ]),
   ]),
   ...prefix("/auth/counselor", [
     index("routes/auth/counselor/index.tsx"),
