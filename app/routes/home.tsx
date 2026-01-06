@@ -41,27 +41,11 @@ const ONLINE_COUNSELORS: DummyCounselor[] = Array.from({ length: 36 }).map(
 export default function Home() {
   return (
     <div className="space-y-10">
-      <div className="asChild">
-        <Link to="/user/chats/1">
-          <h1 className="text-5xl font-bold pt-10">마지막 채팅</h1>
-          <p className="font-light text-muted-foreground p-2">
-            가장 최근에 상담사와 채팅한 내역입니다.
-          </p>
-          <Button
-            variant="link"
-            size="sm"
-            className="gap-2 pt-5 pb-10 text-lg"
-            asChild
-          >
-            <Link to="/user/chats/1">바로가기&rarr;</Link>
-          </Button>
-        </Link>
-      </div>
-      <div className="asChild">
+      <div className="asChild pt-5">
         <Link to="/user/chats/list">
           <h1 className="text-5xl font-bold">채팅 목록</h1>
-          <p className="font-light text-muted-foreground p-2">
-            채팅 목록입니다.
+          <p className="text-xl font-light text-foreground p-2">
+            이전에 진행한 상담 기록들입니다.
           </p>
           <Button
             variant="link"
@@ -70,6 +54,8 @@ export default function Home() {
             asChild
           >
             <Link to="/user/chats/list">바로가기&rarr;</Link>
+            {/* 아래에 챗 카드 목록 */}
+            {/* 즐겨찾기 (고정) 가능 */}
           </Button>
         </Link>
       </div>
@@ -78,7 +64,7 @@ export default function Home() {
           <h1 className="text-5xl font-bold asChild">
             <Link to="/counselors?status=online">상담사 목록</Link>
           </h1>
-          <p className="font-light text-muted-foreground mt-1">
+          <p className="text-xl font-light text-foreground p-2">
             현재 상담 가능한 상담사들입니다.
           </p>
         </div>

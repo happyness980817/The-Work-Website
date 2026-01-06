@@ -60,7 +60,7 @@ export default function CounselorsIndex() {
       <div className="space-y-3">
         <div>
           <h1 className="text-5xl font-bold">상담사 목록</h1>
-          <p className="font-light text-muted-foreground pt-2">
+          <p className="text-xl font-light text-foreground p-2">
             당신의 '작업'을 도와줄 퍼실리테이터를 찾아보세요.
           </p>
         </div>
@@ -68,10 +68,18 @@ export default function CounselorsIndex() {
 
       <div className="space-y-16">
         <section className="space-y-5">
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            온라인
-          </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div>
+              <h2 className="text-5xl font-bold leading-tight tracking-tight">
+                온라인
+              </h2>
+              <p className="text-xl font-light text-foreground">
+                지금 바로 연결 가능한 상담사들입니다.
+              </p>
+              <Button variant="link" asChild className="text-xl p-0">
+                <Link to="/counselors?status=online">더보기 &rarr;</Link>
+              </Button>
+            </div>
             {ONLINE_COUNSELORS.slice(0, 8).map((counselor) => (
               <CounselorCard
                 key={counselor.id}
@@ -82,19 +90,22 @@ export default function CounselorsIndex() {
                 avatarUrl={counselor.avatarUrl}
               />
             ))}
-            <div className="h-full flex items-end justify-end px-6 py-6">
-              <Button variant="link" asChild className="text-xl p-0">
-                <Link to="/counselors?status=online">더보기 &rarr;</Link>
-              </Button>
-            </div>
           </div>
         </section>
 
         <section className="space-y-5">
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            상담중
-          </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div>
+              <h2 className="text-5xl font-bold leading-tight tracking-tight">
+                상담중
+              </h2>
+              <p className="text-xl font-light text-foreground">
+                현재 상담을 진행 중인 상담사들입니다.
+              </p>
+              <Button variant="link" asChild className="text-xl p-0">
+                <Link to="/counselors?status=busy">더보기 &rarr;</Link>
+              </Button>
+            </div>
             {BUSY_COUNSELORS.slice(0, 8).map((counselor) => (
               <CounselorCard
                 key={counselor.id}
@@ -105,18 +116,21 @@ export default function CounselorsIndex() {
                 avatarUrl={counselor.avatarUrl}
               />
             ))}
-            <div className="h-full flex items-end justify-end px-6 py-6">
-              <Button variant="link" asChild className="text-xl p-0">
-                <Link to="/counselors?status=busy">더보기 &rarr;</Link>
-              </Button>
-            </div>
           </div>
         </section>
         <section className="space-y-5">
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            오프라인
-          </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div>
+              <h2 className="text-5xl font-bold leading-tight tracking-tight">
+                오프라인
+              </h2>
+              <p className="text-xl font-light text-foreground">
+                현재 오프라인 상태의 상담사들입니다.
+              </p>
+              <Button variant="link" asChild className="text-xl p-0">
+                <Link to="/counselors?status=offline">더보기 &rarr;</Link>
+              </Button>
+            </div>
             {AWAY_COUNSELORS.slice(0, 8).map((counselor) => (
               <CounselorCard
                 key={counselor.id}
@@ -127,11 +141,6 @@ export default function CounselorsIndex() {
                 avatarUrl={counselor.avatarUrl}
               />
             ))}
-            <div className="h-full flex items-end justify-end px-6 py-6">
-              <Button variant="link" asChild className="text-xl p-0">
-                <Link to="/counselors?status=offline">더보기 &rarr;</Link>
-              </Button>
-            </div>
           </div>
         </section>
       </div>
