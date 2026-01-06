@@ -43,32 +43,47 @@ export default function Home() {
     <div className="space-y-10">
       <div className="asChild">
         <Link to="/user/chats/1">
-          <h1 className="text-5xl font-bold">마지막 채팅</h1>
+          <h1 className="text-5xl font-bold pt-10">마지막 채팅</h1>
           <p className="font-light text-muted-foreground p-2">
             가장 최근에 상담사와 채팅한 내역입니다.
           </p>
           <Button
             variant="link"
             size="sm"
-            className="gap-2 pt-5 pb-20 text-lg"
+            className="gap-2 pt-5 pb-10 text-lg"
             asChild
           >
             <Link to="/user/chats/1">바로가기&rarr;</Link>
           </Button>
         </Link>
       </div>
-      <div className="space-y-3">
+      <div className="asChild">
+        <Link to="/user/chats/list">
+          <h1 className="text-5xl font-bold">채팅 목록</h1>
+          <p className="font-light text-muted-foreground p-2">
+            채팅 목록입니다.
+          </p>
+          <Button
+            variant="link"
+            size="sm"
+            className="gap-2 pt-5 pb-10 text-lg"
+            asChild
+          >
+            <Link to="/user/chats/list">바로가기&rarr;</Link>
+          </Button>
+        </Link>
+      </div>
+      <section className="space-y-3">
         <div>
           <h1 className="text-5xl font-bold asChild">
             <Link to="/counselors?status=online">상담사 목록</Link>
           </h1>
-          <p className="font-light text-muted-foreground pt-2">
+          <p className="font-light text-muted-foreground mt-1">
             현재 상담 가능한 상담사들입니다.
           </p>
         </div>
-      </div>
-      <div className="space-y-16">
-        <section className="space-y-5">
+
+        <div className="space-y-2">
           <div className="flex justify-end">
             <Button variant="ghost" size="sm" className="gap-2" disabled>
               <RefreshCw className="size-4" />
@@ -87,8 +102,8 @@ export default function Home() {
               />
             ))}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
