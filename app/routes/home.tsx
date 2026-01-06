@@ -25,7 +25,7 @@ type DummyCounselor = {
 
 const AVATAR_URL = "https://github.com/shadcn.png";
 
-const ONLINE_COUNSELORS: DummyCounselor[] = Array.from({ length: 8 }).map(
+const ONLINE_COUNSELORS: DummyCounselor[] = Array.from({ length: 36 }).map(
   (_, i) => {
     const id = `online-${i + 1}`;
     return {
@@ -36,33 +36,7 @@ const ONLINE_COUNSELORS: DummyCounselor[] = Array.from({ length: 8 }).map(
       avatarUrl: AVATAR_URL,
     };
   }
-);
-
-const BUSY_COUNSELORS: DummyCounselor[] = Array.from({ length: 8 }).map(
-  (_, i) => {
-    const id = `busy-${i + 1}`;
-    return {
-      id,
-      name: `상담사 ${i + 101}`,
-      headline: "상담사입니다.",
-      status: "busy",
-      avatarUrl: AVATAR_URL,
-    };
-  }
-);
-
-const AWAY_COUNSELORS: DummyCounselor[] = Array.from({ length: 8 }).map(
-  (_, i) => {
-    const id = `away-${i + 1}`;
-    return {
-      id,
-      name: `상담사 ${i + 201}`,
-      headline: "상담사입니다.",
-      status: "away",
-      avatarUrl: AVATAR_URL,
-    };
-  }
-);
+); // 무한 스크롤, prefetch=viewport
 
 export default function Home() {
   return (
@@ -75,12 +49,8 @@ export default function Home() {
           </p>
         </div>
       </div>
-
       <div className="space-y-16">
         <section className="space-y-5">
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="text-5xl font-semibold">온라인</h2>
-          </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
             {ONLINE_COUNSELORS.map((counselor) => (
               <CounselorCard
@@ -92,57 +62,6 @@ export default function Home() {
                 avatarUrl={counselor.avatarUrl}
               />
             ))}
-          </div>
-          <div className="flex justify-end">
-            <Button variant="link" className="px-0">
-              더보기 →
-            </Button>
-          </div>
-        </section>
-
-        <section className="space-y-5">
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="text-5xl font-semibold">상담중</h2>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {BUSY_COUNSELORS.map((counselor) => (
-              <CounselorCard
-                key={counselor.id}
-                id={counselor.id}
-                name={counselor.name}
-                headline={counselor.headline}
-                status={counselor.status}
-                avatarUrl={counselor.avatarUrl}
-              />
-            ))}
-          </div>
-          <div className="flex justify-end">
-            <Button variant="link" className="px-0">
-              더보기 →
-            </Button>
-          </div>
-        </section>
-
-        <section className="space-y-5">
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="text-5xl font-semibold">자리비움</h2>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {AWAY_COUNSELORS.map((counselor) => (
-              <CounselorCard
-                key={counselor.id}
-                id={counselor.id}
-                name={counselor.name}
-                headline={counselor.headline}
-                status={counselor.status}
-                avatarUrl={counselor.avatarUrl}
-              />
-            ))}
-          </div>
-          <div className="flex justify-end">
-            <Button variant="link" className="px-0">
-              더보기 →
-            </Button>
           </div>
         </section>
       </div>
