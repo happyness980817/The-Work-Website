@@ -2,11 +2,10 @@ import {
   CounselorCard,
   type CounselorStatus,
 } from "~/components/counselor-card";
-import { Form } from "react-router";
-import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import type { Route } from "./+types/home";
 import { COUNTRIES } from "~/constants";
+import { RefreshCw } from "lucide-react";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -45,12 +44,18 @@ export default function Home() {
         <div>
           <h1 className="text-5xl font-bold">상담사 목록</h1>
           <p className="font-light text-muted-foreground pt-2">
-            당신의 '작업'을 도와줄 퍼실리테이터를 찾아보세요.
+            현재 상담 가능한 상담사들입니다.
           </p>
         </div>
       </div>
       <div className="space-y-16">
         <section className="space-y-5">
+          <div className="flex justify-end">
+            <Button variant="ghost" size="sm" className="gap-2" disabled>
+              <RefreshCw className="size-4" />
+              새로고침
+            </Button>
+          </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
             {ONLINE_COUNSELORS.map((counselor) => (
               <CounselorCard
