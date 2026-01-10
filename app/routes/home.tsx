@@ -1,7 +1,4 @@
-import {
-  CounselorCard,
-  type CounselorStatus,
-} from "~/components/counselor-card";
+import { CounselorCard } from "~/components/counselor-card";
 import { Button } from "~/components/ui/button";
 import type { Route } from "./+types/home";
 import { COUNTRIES } from "~/constants";
@@ -15,34 +12,13 @@ export const meta: Route.MetaFunction = () => {
   ];
 };
 
-type DummyCounselor = {
-  id: string;
-  name: string;
-  headline: string;
-  status: CounselorStatus;
-  avatarUrl?: string;
-};
-
-const AVATAR_URL = "https://github.com/shadcn.png";
-
-const ONLINE_COUNSELORS: DummyCounselor[] = Array.from({ length: 36 }).map(
-  (_, i) => {
-    const id = `online-${i + 1}`;
-    return {
-      id,
-      name: `상담사 ${i + 1}`,
-      headline: "상담사입니다.",
-      status: "online",
-      avatarUrl: AVATAR_URL,
-    };
-  }
-); // 무한 스크롤, prefetch=viewport
+// 무한 스크롤, prefetch=viewport
 
 export default function Home() {
   return (
     <div className="space-y-10">
       <div className="asChild pt-5">
-        <Link to="/user/chats/list">
+        <Link to="/client/chats/list">
           <h1 className="text-5xl font-bold">채팅 목록</h1>
           <p className="text-xl font-light text-foreground p-2">
             이전에 진행한 상담 기록들입니다.
@@ -53,7 +29,7 @@ export default function Home() {
             className="gap-2 pt-5 pb-10 text-lg"
             asChild
           >
-            <Link to="/user/chats/list">바로가기&rarr;</Link>
+            <Link to="/client/chats/list">바로가기&rarr;</Link>
             {/* 아래에 챗 카드 목록 */}
             {/* 즐겨찾기 (고정) 가능 */}
           </Button>
@@ -77,14 +53,14 @@ export default function Home() {
             </Button>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {ONLINE_COUNSELORS.map((counselor) => (
+            {Array.from({ length: 36 }).map((_, index) => (
               <CounselorCard
-                key={counselor.id}
-                id={counselor.id}
-                name={counselor.name}
-                headline={counselor.headline}
-                status={counselor.status}
-                avatarUrl={counselor.avatarUrl}
+                key={index}
+                id={`online-${index + 1}`}
+                name={`상담사 ${index + 1}`}
+                headline={`상담사 ${index + 1}입니다.`}
+                status="online"
+                avatarUrl="https://github.com/shadcn.png"
               />
             ))}
           </div>

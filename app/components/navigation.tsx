@@ -22,75 +22,98 @@ import {
 import { COUNTRIES } from "~/constants";
 import { cn } from "~/lib/utils";
 
-const menus = [
-  {
-    name: "상담사 ",
-    to: "/counselors?status=online",
-    items: [
-      {
-        name: "기준별 탐색",
-        description: "최고의 상담사들을 찾아보세요.",
-        to: "/counselors",
-      },
-      // {
-      //   name: "온라인",
-      //   description: "Online counselors",
-      //   to: "/counselors?status=online",
-      // },
-      // {
-      //   name: "국가별",
-      //   description: "Counselors by country",
-      //   to: "/counselors?sortBy=countries",
-      // },
-      // {
-      //   name: "평점별",
-      //   description: "Counselors with the highest ratings",
-      //   to: "/counselors?sortBy=ratings&sortOrder=desc",
-      // },
-      // {
-      //   name: "상담 건수별",
-      //   description: "Counselors who have completed the most sessions",
-      //   to: "/counselors?sortBy=completedSessions&sortOrder=desc",
-      // },
-      // 이렇게 할게 아니라 한페이지에서 필터 적용으로 그냥 휙휙 정렬기준이 바뀌게 해야할거같다
-      {
-        name: "상담사 검색",
-        description: "상담사 검색 페이지입니다.",
-        to: "/counselors/search",
-      },
-    ],
+type LoggedInUserType = "counselor" | "client" | "admin";
+
+const roleConfig = {
+  client: {
+    label: "내담자",
+    appHomeTo: "/client",
+    chatsTo: "/client/chats/list",
+    dmTo: "/client/dm",
   },
-  {
-    name: "채팅",
-    to: "/user/chats/list",
-    items: [
-      {
-        name: "채팅 목록",
-        description: "채팅 기록 다시보기 페이지입니다.",
-        to: "/user/chats/list",
-      },
-      {
-        name: "DM",
-        description: "DM",
-        to: "/user/dm",
-      },
-    ],
+  counselor: {
+    label: "상담사",
+    appHomeTo: "/counselor",
+    chatsTo: "/counselor/chats/list",
   },
-  {
-    name: "웹사이트 소개",
-    to: "/about",
+  admin: {
+    label: "어드민",
+    appHomeTo: "/admin",
+    chatsTo: "/admin/chats/list",
   },
-];
+} as const satisfies Record<
+  LoggedInUserType,
+  {
+    label: string;
+    appHomeTo: string;
+    chatsTo: string;
+    dmTo?: string;
+  }
+>;
 
 export default function Navigation({
+  loggedInUserType,
   isloggedIn,
   hasNotifications,
   hasMessages,
 }: {
+  loggedInUserType: LoggedInUserType;
   isloggedIn: boolean;
   hasNotifications: boolean;
   hasMessages: boolean;
 }) {
+  const isClient = loggedInUserType === "client";
+  const role = roleConfig[loggedInUserType];
+  const chatMenuItems = isClient
+    ? [
+        {
+          name: "채팅 목록",
+          description: "채팅 기록 다시보기 페이지입니다.",
+          to: roleConfig.client.chatsTo,
+        },
+        {
+          name: "DM",
+          description: "DM",
+          to: roleConfig.client.dmTo,
+        },
+      ]
+    : [
+        {
+          name: "채팅 목록",
+          description: "채팅 목록",
+          to: role.chatsTo,
+        },
+      ];
+
+  const menus = [
+    {
+      name: "상담사 ",
+      to: "/counselors?status=online",
+      items: [
+        {
+          name: "기준별 탐색",
+          description: "최고의 상담사들을 찾아보세요.",
+          to: "/counselors",
+        },
+        // 이렇게 할게 아니라 한페이지에서 필터 적용으로 그냥 휙휙 정렬기준이 바뀌게 해야할거같다
+        {
+          name: "상담사 검색",
+          description: "상담사 검색 페이지입니다.",
+          to: "/counselors/search",
+        },
+      ],
+    },
+    {
+      name: "채팅",
+      to: role.chatsTo,
+      items: chatMenuItems,
+    },
+    {
+      name: "웹사이트 소개",
+      to: "/about",
+    },
+  ] as const;
+
   return (
     <nav className="flex px-5 xl:px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
       <div className="flex items-center gap-4">
@@ -172,28 +195,47 @@ export default function Navigation({
           <DropdownMenuContent className="w-64" align="end">
             <DropdownMenuLabel className="flex flex-col">
               <span className="font-medium">
-                {isloggedIn ? "로그인됨(더미)" : "로그인 필요"}
+                {isloggedIn ? `로그인됨(더미) · ${role.label}` : "로그인 필요"}
               </span>
               <span className="text-xs text-muted-foreground">
-                역할별 로그인/가입
+                {isloggedIn
+                  ? "현재 역할로 화면이 구성됩니다."
+                  : "역할별 로그인/가입"}
               </span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem asChild>
-                <Link to="/auth/counselor/login">상담사 로그인</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/auth/counselor/join">상담사 가입</Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link to="/auth/user/login">내담자 로그인</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/auth/user/join">내담자 가입</Link>
-              </DropdownMenuItem>
+              {isloggedIn ? (
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link to={role.appHomeTo}>{role.label} 화면으로</Link>
+                  </DropdownMenuItem>
+                </>
+              ) : (
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link to="/auth/counselor/login">상담사 로그인</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/auth/counselor/join">상담사 가입</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/auth/client/login">내담자 로그인</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/auth/client/join">내담자 가입</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/auth/admin/login">어드민 로그인</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/auth/admin/join">어드민 가입</Link>
+                  </DropdownMenuItem>
+                </>
+              )}
             </DropdownMenuGroup>
 
             {isloggedIn ? (

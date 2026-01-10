@@ -81,7 +81,7 @@ export function CounselorCard({
           size="sm"
           onClick={(e) => {
             e.stopPropagation();
-            navigate("/message");
+            navigate("/client/message");
           }}
         >
           dm
